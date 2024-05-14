@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddwjsvs8xyplf"]
+
+[ext_resource type="Script" path="res://gui.gd" id="1_uqgcn"]
+[ext_resource type="LabelSettings" uid="uid://d4a3ycifbuwjp" path="res://native/text.tres" id="2_hwn1l"]
+
+[sub_resource type="Gradient" id="Gradient_rllhs"]
+offsets = PackedFloat32Array(0, 0.239437)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y3isj"]
+gradient = SubResource("Gradient_rllhs")
+width = 255
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_arfji"]
+colors = PackedColorArray(0.280677, 0.156877, 0.0410739, 1, 0.470588, 1, 0.462745, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_am6p6"]
+gradient = SubResource("Gradient_arfji")
+width = 255
+height = 40
+
+[node name="gui" type="Node2D"]
+script = ExtResource("1_uqgcn")
+
+[node name="GassProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 256.0
+offset_bottom = 42.0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_y3isj")
+texture_progress = SubResource("GradientTexture2D_am6p6")
+
+[node name="height" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 43.0
+offset_right = 89.0
+offset_bottom = 93.0
+text = "0"
+label_settings = ExtResource("2_hwn1l")
+
+[node name="speed" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 145.0
+offset_right = 157.0
+offset_bottom = 195.0
+text = "MP"
+label_settings = ExtResource("2_hwn1l")
+
+[node name="bean_counter" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 93.0
+offset_right = 46.0
+offset_bottom = 143.0
+text = "0"
+label_settings = ExtResource("2_hwn1l")

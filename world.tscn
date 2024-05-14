@@ -1,0 +1,501 @@
+[gd_scene load_steps=39 format=3 uid="uid://bdh1ca1l1rxbn"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_b8yuw"]
+[ext_resource type="PackedScene" uid="uid://b83cj8y3wbpiy" path="res://gee.tscn" id="1_esu5r"]
+[ext_resource type="PackedScene" uid="uid://dnw6mpjv885rn" path="res://big_bean.tscn" id="3_h0x8y"]
+[ext_resource type="PackedScene" uid="uid://ddwjsvs8xyplf" path="res://gui.tscn" id="4_3bryt"]
+[ext_resource type="PackedScene" uid="uid://cdn08a3w582ct" path="res://spawn_beans.tscn" id="4_115ol"]
+[ext_resource type="Material" uid="uid://dh2fwcgssc44q" path="res://native/space_terf.tres" id="4_d6nww"]
+[ext_resource type="Script" path="res://big_bean_area.gd" id="4_e5wi2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l8nir"]
+sky_top_color = Color(0.31423, 0.554547, 1, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+sky_curve = 0.0105367
+ground_bottom_color = Color(0, 0.443137, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_ybkvk"]
+sky_material = SubResource("ProceduralSkyMaterial_l8nir")
+
+[sub_resource type="Environment" id="Environment_1mr8u"]
+background_mode = 2
+sky = SubResource("Sky_ybkvk")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_length = 11.8
+volumetric_fog_detail_spread = 6.0
+volumetric_fog_sky_affect = 0.347
+adjustment_enabled = true
+adjustment_contrast = 1.59
+adjustment_saturation = 2.18
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_feqp1"]
+frequency = 0.4775
+fractal_type = 2
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5b7nq"]
+noise = SubResource("FastNoiseLite_feqp1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ln3sm"]
+albedo_texture = SubResource("NoiseTexture2D_5b7nq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_tfn7r"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_sifd3"]
+margin = 0.0
+data = PackedVector3Array(-50, 0.5, 50, 50, 0.5, 50, -50, -0.5, 50, 50, 0.5, 50, 50, -0.5, 50, -50, -0.5, 50, 50, 0.5, -50, -50, 0.5, -50, 50, -0.5, -50, -50, 0.5, -50, -50, -0.5, -50, 50, -0.5, -50, 50, 0.5, 50, 50, 0.5, -50, 50, -0.5, 50, 50, 0.5, -50, 50, -0.5, -50, 50, -0.5, 50, -50, 0.5, -50, -50, 0.5, 50, -50, -0.5, -50, -50, 0.5, 50, -50, -0.5, 50, -50, -0.5, -50, 50, 0.5, 50, -50, 0.5, 50, 50, 0.5, -50, -50, 0.5, 50, -50, 0.5, -50, 50, 0.5, -50, -50, -0.5, 50, 50, -0.5, 50, -50, -0.5, -50, 50, -0.5, 50, 50, -0.5, -50, -50, -0.5, -50)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ygirs"]
+height = 64.43
+radius = 21.22
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k3aau"]
+height = 66.46
+radius = 21.655
+
+[sub_resource type="VoxelStreamMemory" id="VoxelStreamMemory_54xlu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nbp15"]
+noise_type = 2
+frequency = 0.0001
+fractal_type = 2
+fractal_gain = 10.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ao236"]
+noise_type = 2
+frequency = 0.003
+fractal_type = 2
+fractal_weighted_strength = 1.0
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_ne650"]
+graph_data = {
+"connections": [[9, 0, 15, 0], [2, 0, 12, 0], [15, 0, 13, 1], [13, 0, 12, 1], [12, 0, 11, 0], [11, 0, 4, 0], [14, 0, 13, 0]],
+"nodes": {
+"1": {
+"gui_position": Vector2(440, 50),
+"type": "InputX"
+},
+"11": {
+"b": 1.0,
+"gui_position": Vector2(1120, 100),
+"type": "Multiply"
+},
+"12": {
+"gui_position": Vector2(960, 60),
+"type": "Add"
+},
+"13": {
+"gui_position": Vector2(880, 220),
+"type": "Multiply"
+},
+"14": {
+"auto_connect": true,
+"gui_position": Vector2(580, 260),
+"noise": SubResource("FastNoiseLite_ao236"),
+"type": "Noise2D",
+"x": 0.0,
+"y": 0.0
+},
+"15": {
+"b": 300.0,
+"gui_position": Vector2(745.36, 372.68),
+"type": "Multiply"
+},
+"2": {
+"gui_position": Vector2(440, 150),
+"type": "InputY"
+},
+"3": {
+"gui_position": Vector2(440, 250),
+"type": "InputZ"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(1300, 100),
+"type": "OutputSDF"
+},
+"8": {
+"a": 0.0,
+"b": 1000.0,
+"gui_position": Vector2(780, 160),
+"type": "Divide"
+},
+"9": {
+"auto_connect": true,
+"gui_position": Vector2(160, 280),
+"noise": SubResource("FastNoiseLite_nbp15"),
+"type": "Noise3D",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+},
+"version": 2
+}
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_hhdtx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol5kx"]
+albedo_color = Color(4.81307e-07, 0.467412, 1.15514e-06, 1)
+
+[sub_resource type="VoxelStreamMemory" id="VoxelStreamMemory_vdnpi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ss3ok"]
+noise_type = 5
+frequency = 0.0018
+fractal_type = 2
+fractal_octaves = 2
+fractal_gain = 2.135
+fractal_weighted_strength = 0.37
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_6fi2n"]
+graph_data = {
+"connections": [[7, 0, 13, 0], [7, 0, 4, 0], [20, 0, 16, 1], [20, 0, 17, 1], [20, 0, 18, 1], [2, 0, 17, 0], [2, 0, 19, 0], [19, 0, 21, 0], [19, 0, 20, 1], [18, 0, 7, 2], [17, 0, 7, 1], [3, 0, 18, 0], [16, 0, 7, 0], [1, 0, 16, 0]],
+"nodes": {
+"1": {
+"gui_position": Vector2(-60, 40),
+"type": "InputX"
+},
+"13": {
+"b": -1.0,
+"gui_position": Vector2(1120, -40),
+"type": "Multiply"
+},
+"16": {
+"gui_position": Vector2(620, 40),
+"type": "Divide"
+},
+"17": {
+"gui_position": Vector2(620, 160),
+"type": "Divide"
+},
+"18": {
+"gui_position": Vector2(614.922, 292.82),
+"type": "Divide"
+},
+"19": {
+"b": 1000.0,
+"gui_position": Vector2(60, 240),
+"type": "Divide"
+},
+"2": {
+"gui_position": Vector2(-60, 120),
+"type": "InputY"
+},
+"20": {
+"a": 0.0,
+"gui_position": Vector2(300, 240),
+"type": "Add"
+},
+"21": {
+"gui_position": Vector2(180, 200),
+"type": "Abs"
+},
+"3": {
+"gui_position": Vector2(-60, 320),
+"type": "InputZ"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(1300, 160),
+"type": "OutputSDF"
+},
+"7": {
+"auto_connect": true,
+"gui_position": Vector2(900, 100),
+"noise": SubResource("FastNoiseLite_ss3ok"),
+"type": "Noise3D"
+}
+},
+"version": 2
+}
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_q1men"]
+
+[sub_resource type="VoxelStreamMemory" id="VoxelStreamMemory_pfvs6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0oxbf"]
+noise_type = 2
+frequency = 0.0001
+fractal_type = 2
+fractal_gain = 1.985
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2ped4"]
+noise_type = 2
+frequency = 0.0744
+fractal_octaves = 1
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_p3xu0"]
+graph_data = {
+"connections": [[6, 0, 17, 0], [3, 0, 21, 0], [25, 0, 23, 0], [24, 0, 12, 0], [1, 0, 18, 0], [10, 0, 11, 0], [23, 0, 24, 1], [11, 0, 12, 1], [12, 0, 4, 0], [16, 0, 17, 1], [17, 0, 24, 0], [18, 0, 16, 0], [19, 0, 18, 1], [19, 0, 20, 1], [19, 0, 21, 1], [2, 0, 10, 0], [2, 0, 20, 0], [2, 0, 25, 0], [20, 0, 16, 1], [21, 0, 16, 2]],
+"nodes": {
+"1": {
+"gui_position": Vector2(273, 55),
+"type": "InputX"
+},
+"10": {
+"b": 10.0,
+"gui_position": Vector2(380, -120),
+"type": "Subtract"
+},
+"11": {
+"auto_connect": true,
+"gui_position": Vector2(585.64, -133.1),
+"height": 0.0,
+"type": "SdfPlane"
+},
+"12": {
+"gui_position": Vector2(1000, 0),
+"smoothness": 0.0,
+"type": "SdfSmoothSubtract"
+},
+"16": {
+"auto_connect": true,
+"gui_position": Vector2(540, 240),
+"noise": SubResource("FastNoiseLite_2ped4"),
+"type": "Noise3D"
+},
+"17": {
+"gui_position": Vector2(718.74, 133.1),
+"type": "Subtract"
+},
+"18": {
+"gui_position": Vector2(380, 200),
+"type": "Divide"
+},
+"19": {
+"gui_position": Vector2(106.48, 212.96),
+"type": "Constant",
+"value": 50.0
+},
+"2": {
+"gui_position": Vector2(273, 145),
+"type": "InputY"
+},
+"20": {
+"gui_position": Vector2(380, 300),
+"type": "Divide"
+},
+"21": {
+"gui_position": Vector2(380, 400),
+"type": "Divide"
+},
+"22": {
+"a": 0.0,
+"b": 1.0,
+"gui_position": Vector2(720, 0),
+"type": "Divide"
+},
+"23": {
+"b": 500.0,
+"gui_position": Vector2(520, 0),
+"type": "Divide"
+},
+"24": {
+"gui_position": Vector2(900, 120),
+"type": "Subtract"
+},
+"25": {
+"b": 750.0,
+"gui_position": Vector2(380, 20),
+"type": "Subtract"
+},
+"3": {
+"gui_position": Vector2(273, 255),
+"type": "InputZ"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(1160, 60),
+"type": "OutputSDF"
+},
+"6": {
+"auto_connect": true,
+"gui_position": Vector2(540, 120),
+"noise": SubResource("FastNoiseLite_0oxbf"),
+"type": "Noise3D",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+},
+"version": 2
+}
+
+[sub_resource type="VoxelMesherTransvoxel" id="VoxelMesherTransvoxel_w7x16"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ywm2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+diffuse_mode = 3
+
+[sub_resource type="VoxelGeneratorGraph" id="VoxelGeneratorGraph_7oi05"]
+graph_data = {
+"connections": [[6, 0, 17, 0], [1, 0, 18, 0], [10, 0, 11, 0], [11, 0, 12, 1], [12, 0, 4, 0], [16, 0, 17, 1], [3, 0, 21, 0], [17, 0, 12, 0], [18, 0, 16, 0], [19, 0, 18, 1], [19, 0, 20, 1], [19, 0, 21, 1], [2, 0, 10, 0], [2, 0, 20, 0], [20, 0, 16, 1], [21, 0, 16, 2]],
+"nodes": {
+"1": {
+"gui_position": Vector2(273, 55),
+"type": "InputX"
+},
+"10": {
+"b": 10.0,
+"gui_position": Vector2(380, -120),
+"type": "Subtract"
+},
+"11": {
+"auto_connect": true,
+"gui_position": Vector2(585.64, -133.1),
+"height": 0.0,
+"type": "SdfPlane"
+},
+"12": {
+"gui_position": Vector2(900, 60),
+"smoothness": 0.0,
+"type": "SdfSmoothSubtract"
+},
+"16": {
+"auto_connect": true,
+"gui_position": Vector2(540, 240),
+"noise": SubResource("FastNoiseLite_2ped4"),
+"type": "Noise3D"
+},
+"17": {
+"gui_position": Vector2(718.74, 133.1),
+"type": "Subtract"
+},
+"18": {
+"gui_position": Vector2(380, 200),
+"type": "Divide"
+},
+"19": {
+"gui_position": Vector2(100, 200),
+"type": "Constant",
+"value": 5.0
+},
+"2": {
+"gui_position": Vector2(273, 145),
+"type": "InputY"
+},
+"20": {
+"gui_position": Vector2(380, 300),
+"type": "Divide"
+},
+"21": {
+"gui_position": Vector2(380, 400),
+"type": "Divide"
+},
+"3": {
+"gui_position": Vector2(273, 255),
+"type": "InputZ"
+},
+"4": {
+"auto_connect": true,
+"gui_position": Vector2(1160, 60),
+"type": "OutputSDF"
+},
+"6": {
+"auto_connect": true,
+"gui_position": Vector2(540, 120),
+"noise": SubResource("FastNoiseLite_0oxbf"),
+"type": "Noise3D",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+},
+"version": 2
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ti5g7"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="VoxelInstanceGenerator" id="VoxelInstanceGenerator_7bcah"]
+density = 0.003
+
+[sub_resource type="VoxelInstanceLibrarySceneItem" id="VoxelInstanceLibrarySceneItem_8a26g"]
+lod_index = 4
+generator = SubResource("VoxelInstanceGenerator_7bcah")
+scene = ExtResource("4_115ol")
+
+[sub_resource type="VoxelInstanceLibrary" id="VoxelInstanceLibrary_c21jj"]
+item_1 = SubResource("VoxelInstanceLibrarySceneItem_8a26g")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_b8yuw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1mr8u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.88454, 0)
+material_override = SubResource("StandardMaterial3D_ln3sm")
+mesh = SubResource("BoxMesh_tfn7r")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_sifd3")
+
+[node name="Gee" parent="." instance=ExtResource("1_esu5r")]
+
+[node name="big_bean" parent="." instance=ExtResource("3_h0x8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.8246, -77.3081)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="big_bean"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="big_bean/StaticBody3D"]
+shape = SubResource("CylinderShape3D_ygirs")
+
+[node name="big_bean_area" type="Area3D" parent="big_bean"]
+script = ExtResource("4_e5wi2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="big_bean/big_bean_area"]
+shape = SubResource("CylinderShape3D_k3aau")
+
+[node name="gound" type="VoxelLodTerrain" parent="."]
+stream = SubResource("VoxelStreamMemory_54xlu")
+generator = SubResource("VoxelGeneratorGraph_ne650")
+mesher = SubResource("VoxelMesherTransvoxel_hhdtx")
+material = SubResource("StandardMaterial3D_ol5kx")
+
+[node name="spaceTerrain" type="VoxelLodTerrain" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5000, -393.57)
+stream = SubResource("VoxelStreamMemory_vdnpi")
+generator = SubResource("VoxelGeneratorGraph_6fi2n")
+mesher = SubResource("VoxelMesherTransvoxel_q1men")
+material = ExtResource("4_d6nww")
+
+[node name="clowdsTerrain" type="VoxelLodTerrain" parent="."]
+stream = SubResource("VoxelStreamMemory_pfvs6")
+generator = SubResource("VoxelGeneratorGraph_p3xu0")
+mesher = SubResource("VoxelMesherTransvoxel_w7x16")
+lod_count = 5
+lod_distance = 20.0
+secondary_lod_distance = 20.0
+material = SubResource("StandardMaterial3D_2ywm2")
+generate_collisions = false
+
+[node name="VoxelLodTerrain2" type="VoxelLodTerrain" parent="."]
+stream = SubResource("VoxelStreamMemory_pfvs6")
+generator = SubResource("VoxelGeneratorGraph_7oi05")
+mesher = SubResource("VoxelMesherTransvoxel_w7x16")
+lod_count = 5
+lod_distance = 20.0
+secondary_lod_distance = 20.0
+material = SubResource("StandardMaterial3D_ti5g7")
+generate_collisions = false
+
+[node name="VoxelInstancer" type="VoxelInstancer" parent="VoxelLodTerrain2"]
+library = SubResource("VoxelInstanceLibrary_c21jj")
+
+[node name="gui" parent="." instance=ExtResource("4_3bryt")]

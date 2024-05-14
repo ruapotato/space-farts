@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnw6mpjv885rn"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mgds6"]
+height = 1.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nican"]
+albedo_color = Color(0.77278, 0.739413, 0.757539, 1)
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.46
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_okcn0"]
+top_radius = 0.51
+bottom_radius = 0.51
+height = 1.275
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1178"]
+albedo_color = Color(0.354337, 0.216878, 0.0605204, 1)
+
+[node name="big_bean" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(41.645, 0, 0, 0, 41.645, 0, 0, 0, 41.645, 0, 0, 0)
+mesh = SubResource("CylinderMesh_mgds6")
+surface_material_override/0 = SubResource("StandardMaterial3D_nican")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(41.645, 0, 0, 0, 41.645, 0, 0, 0, 41.645, 0, 0, 0)
+mesh = SubResource("CylinderMesh_okcn0")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1178")

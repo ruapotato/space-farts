@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdn08a3w582ct"]
+
+[ext_resource type="Script" path="res://spawn_beans.gd" id="1_gxac3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_04ol6"]
+
+[node name="spawn_beans" type="Node3D"]
+script = ExtResource("1_gxac3")
+
+[node name="tmp_mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_04ol6")
